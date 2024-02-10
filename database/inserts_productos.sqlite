@@ -1,0 +1,8 @@
+INSERT INTO productos (nombre, imagen, precio, descripcion)
+VALUES
+    ('Avellana', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_avellana.png'), 1.99, 'Delicioso donut de avellana con cobertura crujiente y relleno cremoso.'),
+    ('Candy', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_candy.png'), 2.49, 'Irresistible donut con cubierta de caramelos de colores y relleno de crema dulce.'),
+    ('Caramelo', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_caramelo.png'), 2.29, 'Exquisito donut de caramelo con glaseado de vainilla y trozos de caramelo derretido.'),
+    ('Lotus', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_lotus.png'), 2.79, 'Seductor donut con glaseado de lotus y crujientes galletas de speculoos espolvoreadas.'),
+    ('Nubes', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_nubes.png'), 1.89, 'Divertido donut con topping de nubes de colores y relleno de malvavisco esponjoso.'),
+    ('Vainilla', readfile('C:\\Users\\Miguel\\Desktop\\dev\\tienda-vue\\src\\assets\\donut_vainilla.png'), 1.69, 'Clásico donut de vainilla con glaseado suave y aroma a vainilla natural.');

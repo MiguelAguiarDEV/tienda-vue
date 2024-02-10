@@ -1,16 +1,9 @@
 <template>
-  <div>Carrusel</div>
+	<div>Carrusel</div>
 </template>
 
 <script lang="js" setup>
-console.log("hola")
-
-
+	console.log('hola');
 </script>
 
-<style scoped>
-div {
-  width: 100vw;
-  background-color: rgb(10, 109, 84);
-}
-</style>
+<style scoped></style>
