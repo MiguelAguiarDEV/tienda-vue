@@ -51,6 +51,7 @@
 			console.log(product);
 		});
 	});
+	console.log('Puta', props.productos);
 </script>
 
 <style scoped>
@@ -108,6 +109,7 @@
 		background-color: #181a1b;
 		border-radius: 5px;
 		border: 1px solid transparent;
+		z-index: 1;
 	}
 
 	.item-products:hover {
