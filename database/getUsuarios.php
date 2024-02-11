@@ -17,7 +17,7 @@ function handleGetRequest() {
     }
 
     // Execute a SELECT query
-    $query = "SELECT * FROM productos";
+    $query = "SELECT * FROM usuarios";
     $result = $db->query($query);
 
     // Check if the query was successful
@@ -26,22 +26,15 @@ function handleGetRequest() {
     }
 
     // Fetch the results and store them in an array
-    $products = array();
+    $usuarios = array();
     while ($row = $result->fetchArray()) {
-        $product = array();
-        $product['id'] = $row['id'];
-        $product['nombre'] = $row['nombre'];
-        $product['descripcion'] = $row['descripcion'];
-        $product['precio'] = $row['precio'];
-        if (!empty($row['imagen'])) {
-            $product['imagen'] = 'data:image/png;base64,' . base64_encode($row['imagen']);
-        } else {
-            $product['imagen'] = null;
-        }
-        $products[] = $product;
+        $usuarios = array();
+        $usuarios['id'] = $row['id'];
+        $usuarios['nombre'] = $row['nombre'];
+        $usuarios['contrasena'] = $row['contrasena'];
 }
 
-    echo json_encode($products);
+    echo json_encode($usuarios);
 
     // Close the result set
     $result->finalize();

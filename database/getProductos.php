@@ -38,6 +38,7 @@ function handleGetRequest() {
         } else {
             $product['imagen'] = null;
         }
+        $product['disponibilidad'] = ($row['disponibilidad'] == 1) ? true : false;
         $products[] = $product;
 }
 

@@ -7,10 +7,13 @@
 		{{ productos[ShowContent.id].descripcion }}
 		<img :src="productos[ShowContent.id].imagen" alt="" />
 	</div> -->
-	<Producto
-		v-if="ShowContent.contenido == 'producto'"
-		:producto="productos[ShowContent.id]"
-	/>
+	<div>
+		<Producto
+			class="producto"
+			v-if="ShowContent.contenido == 'producto'"
+			:producto="productos[ShowContent.id]"
+		/>
+	</div>
 </template>
 
 <script lang="js" setup>
@@ -25,4 +28,8 @@
 	});
 </script>
 
-<style scoped></style>
+<style scoped>
+	#contenedor {
+		display: grid;
+	}
+</style>

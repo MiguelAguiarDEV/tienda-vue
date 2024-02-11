@@ -58,7 +58,7 @@
 </script>
 
 <template>
-	<NavBar id="navbar" :productos="productos" />
+	<NavBar id="navbar" :productos="productos" @changeContent="changeContent" />
 	<Carrusel
 		id="carrusel"
 		:productos="productos"
@@ -80,11 +80,9 @@
 	#contenedor {
 		width: 80%;
 		margin: 2vh auto;
-		height: 20vh;
 		border-radius: 25px;
 		padding: 2rem;
 		border: 1px solid #3d3d3d;
-		height: 20vh;
 	}
 	#carrusel {
 		width: 80%;

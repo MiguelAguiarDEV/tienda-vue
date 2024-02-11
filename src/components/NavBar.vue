@@ -12,6 +12,7 @@
 						:key="producto.id"
 						class="product"
 						:value="producto.id"
+						@click="callChangeContent(producto.id)"
 					>
 						{{ producto.nombre }}
 					</button>
@@ -52,6 +53,13 @@
 		});
 	});
 	console.log('Puta', props.productos);
+	const emit = defineEmits(['changeContent']);
+
+	function callChangeContent(id) {
+		// Call the function passed from the parent component
+		const contenido = 'producto';
+		emit('changeContent', contenido, id);
+	}
 </script>
 
 <style scoped>

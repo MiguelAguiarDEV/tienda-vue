@@ -52,7 +52,7 @@
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
-		animation: carrusel_animation 10s infinite linear;
+		animation: carrusel_animation 20s infinite linear;
 		display: flex;
 	}
 
@@ -60,6 +60,8 @@
 		height: 10rem;
 		aspect-ratio: 1/1;
 		margin: 0 5rem;
+		cursor: pointer;
+		-webkit-user-drag: none;
 	}
 
 	@keyframes carrusel_animation {
