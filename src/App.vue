@@ -3,7 +3,7 @@
 	import Carrusel from './components/Carrusel.vue';
 	import Footer from './components/Footer.vue';
 	import Contendor from './components/Contenedor.vue';
-	import { ref } from 'vue';
+	import { ref, provide } from 'vue';
 	import $ from 'jquery';
 
 	const productos = ref([]);
@@ -16,10 +16,6 @@
 			// Handle the response data here
 			// let data = JSON.parse(response);
 			productos.value = JSON.parse(response);
-
-			console.log(productos.value);
-
-			console.log('success');
 		},
 		error: function (error) {
 			// Handle any errors that occur during the request
@@ -35,10 +31,6 @@
 			// Handle the response data here
 			// let data = JSON.parse(response);
 			usuarios.value = JSON.parse(response);
-
-			console.log(usuarios);
-
-			console.log('success');
 		},
 		error: function (error) {
 			// Handle any errors that occur during the request
@@ -47,18 +39,32 @@
 		},
 	});
 
-	const ShowContent = ref({});
+	const ShowContent = ref({
+		contenido: 'home',
+	});
 
-	function changeContent(contenido, id) {
-		ShowContent.value = {
-			contenido: contenido,
-			id: id,
-		};
+	function changeContent(contenido) {
+		ShowContent.value = contenido;
+		console.log(ShowContent.value);
 	}
+	const currentLanguage = ref('en');
+
+	function toggleLenguage() {
+		currentLanguage.value = currentLanguage.value === 'es' ? 'en' : 'es';
+	}
+
+	provide('currentLanguage', currentLanguage);
 </script>
 
 <template>
-	<NavBar id="navbar" :productos="productos" @changeContent="changeContent" />
+	<NavBar
+		id="navbar"
+		:currentLanguage="currentLanguage"
+		:productos="productos"
+		@toggleLenguage="toggleLenguage"
+		@changeContent="changeContent"
+		:ShowContent="ShowContent"
+	/>
 	<Carrusel
 		id="carrusel"
 		:productos="productos"
@@ -66,10 +72,11 @@
 	/>
 	<Contendor
 		id="contenedor"
+		:currentLanguage="ref(currentLanguage)"
 		:ShowContent="ShowContent"
 		:productos="productos"
 	/>
-	<Footer id="footer" />
+	<Footer />
 </template>
 
 <style scoped>
@@ -87,11 +94,10 @@
 	#carrusel {
 		width: 80%;
 		margin: 2vh auto;
-		height: 20vh;
 		border-radius: 25px;
 		padding: 2rem;
 		border: 1px solid #3d3d3d;
-		height: 20vh;
+		height: 10vh;
 	}
 
 	#footer {

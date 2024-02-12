@@ -2,8 +2,6 @@
 	<div>Footer</div>
 </template>
 
-<script lang="js" setup>
-	console.log('hola');
-</script>
+<script lang="js" setup></script>
 
 <style scoped></style>

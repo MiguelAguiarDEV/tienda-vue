@@ -36,3 +36,45 @@ button {
 	width: 100vw;
 	min-width: 400px;
 }
+
+#producto {
+	height: fit-content;
+}
+
+#producto .product-card img {
+	width: 300px;
+	height: 300px;
+}
+
+#producto .product-card {
+	width: 100%;
+	height: fit-content;
+}
+#producto .product-card .product-info {
+	width: 100%;
+	font-size: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-right: 30px;
+}
+
+#producto .product-card .product-info .info {
+	height: fit-content;
+	width: 100%;
+}
+#producto .product-card .product-info .precio-ctn {
+	display: flex;
+	justify-content: start;
+	gap: 30px;
+	margin-bottom: 40px;
+}
+
+#producto .product-card .product-info .precio-ctn .precio {
+	font-size: 40px;
+}
+
+#producto .product-card .product-info .precio-ctn .btn-add-cart {
+	font-size: 20px;
+	width: fit-content;
+}

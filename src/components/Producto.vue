@@ -5,18 +5,21 @@
 			<div class="product-info">
 				<div class="info">
 					<h2>{{ producto.nombre }}</h2>
-					<p>{{ producto.descripcion }}</p>
+					<p v-if="currentLanguage == 'es'">{{ producto.descripcion_es }}</p>
+					<p v-else>{{ producto.descripcion_en }}</p>
 				</div>
 				<div class="precio-ctn">
 					<p class="precio">{{ producto.precio }}$</p>
 					<button v-if="producto.disponibilidad" class="btn-add-cart">
-						Agregar al carrito
+						{{
+							currentLanguage === 'es' ? 'Agregar al carrito' : 'Add to Cart'
+						}}
 					</button>
 					<button
 						v-if="!producto.disponibilidad"
 						class="btn-add-cart btn-agotado"
 					>
-						Producto Agotado
+						{{ currentLanguage === 'es' ? 'Agotado' : 'Sold Out' }}
 					</button>
 				</div>
 			</div>
@@ -25,19 +28,21 @@
 </template>
 
 <script setup>
+	import { defineProps, inject, ref } from 'vue';
 	const props = defineProps({
 		producto: {
 			type: Object,
 		},
 	});
+
+	const currentLanguage = inject('currentLanguage');
 </script>
 
 <style scoped>
 	.product-card {
 		display: flex;
 		gap: 20px;
-		width: 500px;
-		align-items: center;
+		width: fit-content;
 		justify-content: center;
 	}
 	.precio-ctn {
@@ -83,8 +88,7 @@
 		background-color: #ff0000;
 		border: 2px solid transparent;
 	}
-	.product-info {
-	}
+
 	p {
 		margin: 0;
 	}
@@ -93,5 +97,6 @@
 	}
 	.info {
 		height: 120px;
+		width: 300px;
 	}
 </style>

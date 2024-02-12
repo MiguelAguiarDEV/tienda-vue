@@ -31,7 +31,8 @@ function handleGetRequest() {
         $product = array();
         $product['id'] = $row['id'];
         $product['nombre'] = $row['nombre'];
-        $product['descripcion'] = $row['descripcion'];
+        $product['descripcion_es'] = $row['descripcion_es'];
+        $product['descripcion_en'] = $row['descripcion_en'];
         $product['precio'] = $row['precio'];
         if (!empty($row['imagen'])) {
             $product['imagen'] = 'data:image/png;base64,' . base64_encode($row['imagen']);

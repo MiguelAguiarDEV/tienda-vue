@@ -9,15 +9,22 @@
 	</div> -->
 	<div>
 		<Producto
-			class="producto"
+			id="producto"
 			v-if="ShowContent.contenido == 'producto'"
 			:producto="productos[ShowContent.id]"
+		/>
+		<Home
+			id="home"
+			v-if="ShowContent.contenido == 'home'"
+			:productos="productos"
 		/>
 	</div>
 </template>
 
 <script lang="js" setup>
 	import Producto from './Producto.vue';
+	import Home from './Home.vue';
+	import { defineProps, ref } from 'vue';
 	const props = defineProps({
 		ShowContent: {
 			type: Object,
@@ -25,11 +32,10 @@
 		productos: {
 			type: Array,
 		},
+		currentLanguage: {
+			type: Object,
+		},
 	});
 </script>
 
-<style scoped>
-	#contenedor {
-		display: grid;
-	}
-</style>
+<style scoped></style>

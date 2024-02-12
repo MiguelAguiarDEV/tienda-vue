@@ -2,17 +2,25 @@
 	<nav class="navbar-contenedor">
 		<img class="logo" src="../assets/merca_dona.png" />
 		<div class="items">
-			<button class="item home">Home</button>
+			<button
+				v-if="ShowContent.contenido != 'home'"
+				class="item home"
+				@click="callChangeContent({ contenido: 'home' })"
+			>
+				{{ idioma.home }}
+			</button>
 
 			<div class="item-products">
-				<button class="">Products</button>
+				<button class="">{{ idioma.products }}</button>
 				<div class="dropdown products">
 					<button
 						v-for="producto in productos"
 						:key="producto.id"
 						class="product"
 						:value="producto.id"
-						@click="callChangeContent(producto.id)"
+						@click="
+							callChangeContent({ contenido: 'producto', id: producto.id })
+						"
 					>
 						{{ producto.nombre }}
 					</button>
@@ -25,9 +33,11 @@
            </option>
         </select> -->
 
-			<button class="item">Abauot Us</button>
-			<button class="item boton-idioma">Lenguage</button>
-			<button class="item">Cart</button>
+			<button class="item">{{ idioma.aboutUs }}</button>
+			<button class="item boton-idioma" @click="callToggleLenguage">
+				{{ idioma.language }}
+			</button>
+			<button class="item">{{ idioma.cart }}</button>
 			<button class="item icono-perfil">
 				<img src="../assets/perfil.png" alt="perfil" />
 			</button>
@@ -44,6 +54,12 @@
 			type: Array,
 			required: true,
 		},
+		ShowContent: {
+			type: Object,
+		},
+		currentLanguage: {
+			type: String,
+		},
 	});
 
 	$(document).ready(function () {
@@ -52,13 +68,43 @@
 			console.log(product);
 		});
 	});
-	console.log('Puta', props.productos);
-	const emit = defineEmits(['changeContent']);
 
-	function callChangeContent(id) {
+	const languageTexts = {
+		english: {
+			home: 'Home',
+			products: 'Products',
+			aboutUs: 'About Us',
+			cart: 'Cart',
+			language: 'English',
+		},
+		spanish: {
+			home: 'Inicio',
+			products: 'Productos',
+			aboutUs: 'Sobre Nosotros',
+			cart: 'Carrito',
+			language: 'Español',
+		},
+	};
+
+	const idioma = ref(
+		props.currentLanguage === 'es'
+			? languageTexts.spanish
+			: languageTexts.english
+	);
+
+	const emit = defineEmits(['changeContent', 'toggleLenguage']);
+	function callToggleLenguage() {
 		// Call the function passed from the parent component
-		const contenido = 'producto';
-		emit('changeContent', contenido, id);
+		emit('toggleLenguage');
+		if (props.currentLanguage === 'es') {
+			idioma.value = languageTexts.english;
+		} else {
+			idioma.value = languageTexts.spanish;
+		}
+	}
+	function callChangeContent(contenido) {
+		// Call the function passed from the parent component
+		emit('changeContent', contenido);
 	}
 </script>
 
