@@ -52,7 +52,7 @@
 	function toggleLenguage() {
 		currentLanguage.value = currentLanguage.value === 'es' ? 'en' : 'es';
 	}
-
+	//Tienes que hacer el import
 	provide('currentLanguage', currentLanguage);
 </script>
 
@@ -76,7 +76,7 @@
 		:ShowContent="ShowContent"
 		:productos="productos"
 	/>
-	<Footer />
+	<Footer id="footer" />
 </template>
 
 <style scoped>
@@ -101,8 +101,7 @@
 	}
 
 	#footer {
-		height: auto;
-		background-color: aqua;
+		margin-top: auto;
 	}
 
 	img {

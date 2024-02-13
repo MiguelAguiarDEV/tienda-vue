@@ -99,4 +99,8 @@
 		height: 120px;
 		width: 300px;
 	}
+
+	.precio-ctn button {
+		justify-content: center;
+	}
 </style>

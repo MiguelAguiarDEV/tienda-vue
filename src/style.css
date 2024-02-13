@@ -38,7 +38,7 @@ button {
 }
 
 #producto {
-	height: fit-content;
+	height: 35vh;
 }
 
 #producto .product-card img {
@@ -56,7 +56,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	margin-right: 30px;
+	margin-right: 200px;
 }
 
 #producto .product-card .product-info .info {
@@ -66,15 +66,16 @@ button {
 #producto .product-card .product-info .precio-ctn {
 	display: flex;
 	justify-content: start;
-	gap: 30px;
+	gap: 40px;
 	margin-bottom: 40px;
+	justify-content: flex-end;
 }
 
 #producto .product-card .product-info .precio-ctn .precio {
-	font-size: 40px;
+	font-size: 70px;
 }
 
 #producto .product-card .product-info .precio-ctn .btn-add-cart {
-	font-size: 20px;
+	font-size: 35px;
 	width: fit-content;
 }

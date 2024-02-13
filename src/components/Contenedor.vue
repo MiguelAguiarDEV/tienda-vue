@@ -18,12 +18,19 @@
 			v-if="ShowContent.contenido == 'home'"
 			:productos="productos"
 		/>
+
+		<AboutUs
+			id="aboutUs"
+			v-if="ShowContent.contenido == 'aboutUs'"
+			:currentLanguage="currentLanguage"
+		/>
 	</div>
 </template>
 
 <script lang="js" setup>
 	import Producto from './Producto.vue';
 	import Home from './Home.vue';
+	import AboutUs from './AboutUs.vue';
 	import { defineProps, ref } from 'vue';
 	const props = defineProps({
 		ShowContent: {

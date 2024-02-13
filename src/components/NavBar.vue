@@ -33,13 +33,18 @@
            </option>
         </select> -->
 
-			<button class="item">{{ idioma.aboutUs }}</button>
-			<button class="item boton-idioma" @click="callToggleLenguage">
-				{{ idioma.language }}
+			<button class="item" @click="callChangeContent({ contenido: 'aboutUs' })">
+				{{ idioma.aboutUs }}
 			</button>
-			<button class="item">{{ idioma.cart }}</button>
-			<button class="item icono-perfil">
-				<img src="../assets/perfil.png" alt="perfil" />
+			<button class="item boton-idioma" @click="callToggleLenguage">
+				<img v-if="currentLanguage === 'es'" :src="idioma.language" alt="es" />
+				<img v-else :src="idioma.language" alt="en" />
+			</button>
+			<button class="item" @click="callChangeContent({ contenido: 'cart' })">
+				<img src="../assets/cart.png" alt="cart" /> {{ idioma.cart }}
+			</button>
+			<button class="item" @click="callChangeContent({ contenido: 'login' })">
+				<img src="../assets/perfil.png" alt="perfil" /> {{ idioma.perfil }}
 			</button>
 		</div>
 	</nav>
@@ -75,14 +80,16 @@
 			products: 'Products',
 			aboutUs: 'About Us',
 			cart: 'Cart',
-			language: 'English',
+			language: '/src/assets/en.png',
+			perfil: 'My Profile',
 		},
 		spanish: {
 			home: 'Inicio',
 			products: 'Productos',
 			aboutUs: 'Sobre Nosotros',
 			cart: 'Carrito',
-			language: 'Español',
+			language: '/src/assets/es.png',
+			perfil: 'Mi Perfil',
 		},
 	};
 
@@ -124,9 +131,6 @@
 		margin-left: auto;
 	}
 
-	.item:last-child {
-		padding: 0;
-	}
 	.item {
 		display: flex;
 		background-color: transparent;
@@ -134,6 +138,8 @@
 		cursor: pointer;
 		height: 100%;
 		min-width: fit-content;
+		align-items: center;
+		gap: 5px;
 	}
 
 	.item:hover {
@@ -147,6 +153,9 @@
 		padding: 1rem 4rem;
 	}
 
+	.item img {
+		height: 30px;
+	}
 	nav div {
 		height: 100%;
 	}
