@@ -43,7 +43,7 @@
 			<button class="item" @click="callChangeContent({ contenido: 'cart' })">
 				<img src="../assets/cart.png" alt="cart" /> {{ idioma.cart }}
 			</button>
-			<button class="item" @click="callChangeContent({ contenido: 'login' })">
+			<button class="item" @click="callChangeContent({ contenido: 'logIn' })">
 				<img src="../assets/perfil.png" alt="perfil" /> {{ idioma.perfil }}
 			</button>
 		</div>
@@ -112,6 +112,7 @@
 	function callChangeContent(contenido) {
 		// Call the function passed from the parent component
 		emit('changeContent', contenido);
+		console.log(contenido);
 	}
 </script>
 

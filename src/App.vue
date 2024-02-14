@@ -31,6 +31,7 @@
 			// Handle the response data here
 			// let data = JSON.parse(response);
 			usuarios.value = JSON.parse(response);
+			console.log(usuarios.value);
 		},
 		error: function (error) {
 			// Handle any errors that occur during the request
@@ -38,22 +39,23 @@
 			console.log('error');
 		},
 	});
-
+	console.log(usuarios.value);
 	const ShowContent = ref({
 		contenido: 'home',
 	});
 
 	function changeContent(contenido) {
 		ShowContent.value = contenido;
-		console.log(ShowContent.value);
 	}
+
 	const currentLanguage = ref('en');
 
 	function toggleLenguage() {
 		currentLanguage.value = currentLanguage.value === 'es' ? 'en' : 'es';
 	}
-	//Tienes que hacer el import
+	provide('ShowContent', ShowContent);
 	provide('currentLanguage', currentLanguage);
+	const usuario = ref('');
 </script>
 
 <template>
@@ -75,6 +77,7 @@
 		:currentLanguage="ref(currentLanguage)"
 		:ShowContent="ShowContent"
 		:productos="productos"
+		@changeContent="changeContent"
 	/>
 	<Footer id="footer" />
 </template>

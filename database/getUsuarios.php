@@ -28,10 +28,14 @@ function handleGetRequest() {
     // Fetch the results and store them in an array
     $usuarios = array();
     while ($row = $result->fetchArray()) {
-        $usuarios = array();
+        $usuario = array();
         $usuarios['id'] = $row['id'];
         $usuarios['nombre'] = $row['nombre'];
-        $usuarios['contrasena'] = $row['contrasena'];
+        $usuarios['descripcion_es'] = $row['descripcion_es'];
+        $usuarios['descripcion_en'] = $row['descripcion_en'];
+        $usuarios['precio'] = $row['precio'];
+        $usuarios['disponibilidad'] = ($row['disponibilidad'] == 1) ? true : false;
+        $usuarios[] = $usuario;
 }
 
     echo json_encode($usuarios);

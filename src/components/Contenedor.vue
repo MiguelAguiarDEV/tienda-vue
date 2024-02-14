@@ -24,6 +24,17 @@
 			v-if="ShowContent.contenido == 'aboutUs'"
 			:currentLanguage="currentLanguage"
 		/>
+
+		<SignIn
+			id="signIn"
+			v-if="ShowContent.contenido == 'signIn'"
+			:currentLanguage="currentLanguage"
+		/>
+		<LogIn
+			id="logIn"
+			v-if="ShowContent.contenido == 'logIn'"
+			:currentLanguage="currentLanguage"
+		/>
 	</div>
 </template>
 
@@ -31,6 +42,8 @@
 	import Producto from './Producto.vue';
 	import Home from './Home.vue';
 	import AboutUs from './AboutUs.vue';
+	import SignIn from './SignIn.vue';
+	import LogIn from './LogIn.vue';
 	import { defineProps, ref } from 'vue';
 	const props = defineProps({
 		ShowContent: {
@@ -43,6 +56,8 @@
 			type: Object,
 		},
 	});
+
+	const emit = defineEmits(['changeContent']);
 </script>
 
 <style scoped></style>
