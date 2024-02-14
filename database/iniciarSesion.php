@@ -29,6 +29,7 @@ function handlePOSTRequest() {
             if ($row['contrasena'] == $_POST['contraseña']) {
                 $respuesta = array();
                 $respuesta["resultado"] = "true";
+                $respuesta["mensaje"] = "Inicio de sesión exitoso";
             } else {
                 $respuesta = array();
                 $respuesta["resultado"] = "false";

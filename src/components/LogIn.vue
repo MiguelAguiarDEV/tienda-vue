@@ -26,7 +26,9 @@
 <script setup>
 	import { inject, ref } from 'vue';
 	import $ from 'jquery';
-
+	const ShowContent = inject('ShowContent');
+	const usuario = inject('usuario');
+	const islogged = inject('islogged');
 	function IniciarSesion() {
 		let resultado;
 
@@ -49,7 +51,14 @@
 			},
 		}).then(() => {
 			if (resultado.resultado === 'true') {
+				console.log(resultado.mensaje);
+				ShowContent.value = {
+					contenido: 'home',
+				};
+				usuario.value = $('#usuario').val();
+				islogged.value = true;
 			} else {
+				console.log(resultado.mensaje);
 			}
 		});
 	}

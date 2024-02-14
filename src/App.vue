@@ -55,7 +55,13 @@
 	}
 	provide('ShowContent', ShowContent);
 	provide('currentLanguage', currentLanguage);
+
+	//LOGIN / SIGNIN
 	const usuario = ref('');
+	const islogged = ref(false);
+
+	provide('usuario', usuario);
+	provide('islogged', islogged);
 </script>
 
 <template>

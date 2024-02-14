@@ -43,15 +43,26 @@
 			<button class="item" @click="callChangeContent({ contenido: 'cart' })">
 				<img src="../assets/cart.png" alt="cart" /> {{ idioma.cart }}
 			</button>
-			<button class="item" @click="callChangeContent({ contenido: 'logIn' })">
+			<button
+				v-if="islogged"
+				class="item"
+				@click="callChangeContent({ contenido: 'perfil' })"
+			>
 				<img src="../assets/perfil.png" alt="perfil" /> {{ idioma.perfil }}
+			</button>
+			<button
+				v-else
+				class="item"
+				@click="callChangeContent({ contenido: 'logIn' })"
+			>
+				<img src="../assets/perfil.png" alt="perfil" /> {{ idioma.loggin }}
 			</button>
 		</div>
 	</nav>
 </template>
 
 <script lang="js" setup>
-	import { ref } from 'vue';
+	import { inject, ref } from 'vue';
 	import $ from 'jquery';
 
 	const props = defineProps({
@@ -82,6 +93,7 @@
 			cart: 'Cart',
 			language: '/src/assets/en.png',
 			perfil: 'My Profile',
+			loggin: 'Log In',
 		},
 		spanish: {
 			home: 'Inicio',
@@ -90,6 +102,7 @@
 			cart: 'Carrito',
 			language: '/src/assets/es.png',
 			perfil: 'Mi Perfil',
+			loggin: 'Iniciar Sesión',
 		},
 	};
 
@@ -114,6 +127,7 @@
 		emit('changeContent', contenido);
 		console.log(contenido);
 	}
+	const islogged = inject('islogged');
 </script>
 
 <style scoped>
