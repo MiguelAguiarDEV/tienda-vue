@@ -25,9 +25,9 @@
 			:currentLanguage="currentLanguage"
 		/>
 
-		<SignIn
-			id="signIn"
-			v-if="ShowContent.contenido == 'signIn'"
+		<SignUp
+			id="signUp"
+			v-if="ShowContent.contenido == 'signUp'"
 			:currentLanguage="currentLanguage"
 		/>
 		<LogIn
@@ -42,7 +42,7 @@
 	import Producto from './Producto.vue';
 	import Home from './Home.vue';
 	import AboutUs from './AboutUs.vue';
-	import SignIn from './SignIn.vue';
+	import SignUp from './SignUp.vue';
 	import LogIn from './LogIn.vue';
 	import { defineProps, ref } from 'vue';
 	const props = defineProps({

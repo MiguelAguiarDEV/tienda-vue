@@ -45,6 +45,10 @@
 		width: fit-content;
 		justify-content: center;
 	}
+
+	.producto {
+		background-color: #252525;
+	}
 	.precio-ctn {
 		display: flex;
 		justify-content: space-between;
@@ -52,7 +56,7 @@
 		margin-top: auto;
 	}
 	.producto {
-		border: 1px solid #3d3d3d;
+		border: 1px solid #505050;
 		width: fit-content;
 		border-radius: 15px;
 		height: 200px;
