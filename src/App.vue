@@ -24,21 +24,6 @@
 		},
 	});
 
-	$.ajax({
-		url: 'http://localhost:3000/database/getUsuarios.php',
-		method: 'GET',
-		success: function (response) {
-			// Handle the response data here
-			// let data = JSON.parse(response);
-			usuarios.value = JSON.parse(response);
-			console.log(usuarios.value);
-		},
-		error: function (error) {
-			// Handle any errors that occur during the request
-			console.error(error);
-			console.log('error');
-		},
-	});
 	console.log(usuarios.value);
 	const ShowContent = ref({
 		contenido: 'home',

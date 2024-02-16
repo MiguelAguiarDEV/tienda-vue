@@ -1,10 +1,10 @@
 <?php 
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, POST");
+header("Access-Control-Allow-Methods: GET, GET");
 header("Access-Control-Allow-Headers: Content-Type");
 
-function handlePOSTRequest() {
+function handleIniciarSesion() {
     // Path to the SQLite database file
     $db_path = 'db.sqlite';
 
@@ -17,7 +17,7 @@ function handlePOSTRequest() {
     }
 
     // Execute a SELECT query
-    $query = "SELECT * FROM usuarios WHERE nombre = '$_POST[usuario]'";
+    $query = "SELECT * FROM usuarios WHERE nombre = '$_GET[usuario]'";
     $result = $db->query($query);
 
     // Check if the query was successful
@@ -26,10 +26,14 @@ function handlePOSTRequest() {
     } else {
         $row = $result->fetchArray();
         if ($row) {
-            if ($row['contrasena'] == $_POST['contraseña']) {
+            if ($row['contrasena'] == $_GET['contraseña']) {
                 $respuesta = array();
                 $respuesta["resultado"] = "true";
                 $respuesta["mensaje"] = "Inicio de sesión exitoso";
+                $respuesta["usuario"]["nombre"] = $row['nombre'];
+                $respuesta["usuario"]["mail"] = $row['mail'];
+                $respuesta["usuario"]["tlf"] = $row['tlf'];
+                $respuesta["usuario"]["iban"] = $row['iban'];
             } else {
                 $respuesta = array();
                 $respuesta["resultado"] = "false";
@@ -52,9 +56,9 @@ function handlePOSTRequest() {
 
 }
 
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Execute the function for POST request
-    handlePOSTRequest();
+// Check if the request method is GET
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Execute the function for GET request
+    handleIniciarSesion();
 }
 

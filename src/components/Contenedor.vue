@@ -35,10 +35,16 @@
 			v-if="ShowContent.contenido == 'logIn'"
 			:currentLanguage="currentLanguage"
 		/>
+		<Perfil
+			id="perfil"
+			v-if="ShowContent.contenido == 'perfil'"
+			:currentLanguage="currentLanguage"
+		/>
 	</div>
 </template>
 
 <script lang="js" setup>
+	import Perfil from './Perfil.vue';
 	import Producto from './Producto.vue';
 	import Home from './Home.vue';
 	import AboutUs from './AboutUs.vue';

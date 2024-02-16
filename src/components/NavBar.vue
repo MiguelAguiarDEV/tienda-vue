@@ -48,7 +48,7 @@
 				class="item"
 				@click="callChangeContent({ contenido: 'perfil' })"
 			>
-				<img src="../assets/perfil.png" alt="perfil" /> {{ idioma.perfil }}
+				<img src="../assets/perfil.png" alt="perfil" /> {{ usuario.nombre }}
 			</button>
 			<button
 				v-else
@@ -128,6 +128,7 @@
 		console.log(contenido);
 	}
 	const islogged = inject('islogged');
+	const usuario = inject('usuario');
 </script>
 
 <style scoped>

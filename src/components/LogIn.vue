@@ -39,6 +39,7 @@
 	const usuario = inject('usuario');
 	const islogged = inject('islogged');
 	const currentLanguage = inject('currentLanguage');
+
 	const text = ref({
 		login: {
 			en: 'Log In',
@@ -71,7 +72,7 @@
 
 		$.ajax({
 			url: 'http://localhost:3000/database/iniciarSesion.php', // La URL del servidor
-			type: 'POST', // El tipo de petición HTTP
+			type: 'GET', // El tipo de petición HTTP
 			data: {
 				// Los datos que quieres enviar
 				usuario: $('#usuario').val(),
@@ -88,11 +89,10 @@
 			},
 		}).then(() => {
 			if (resultado.resultado === 'true') {
-				console.log(resultado.mensaje);
 				ShowContent.value = {
 					contenido: 'home',
 				};
-				usuario.value = $('#usuario').val();
+				usuario.value = resultado.usuario;
 				islogged.value = true;
 				$('#userError').removeClass('invalid');
 				$('#userError').hide();

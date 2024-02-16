@@ -86,7 +86,7 @@
 				name="repetirContraseña"
 				:placeholder="text.repeatPassword[currentLanguage]"
 				required
-				@keyup="handleInput('repetirContrasena')"
+				@keyup="handleSecondPassword()"
 			/>
 			<div id="repetirPasswordError" class="error">
 				{{ validationRules.repetirContrasena[currentLanguage] }}
@@ -202,8 +202,6 @@
 		if (!rule.test(value)) {
 			$('#' + field + 'Error').addClass('invalid');
 			$('#' + field + 'Error').removeClass('error');
-
-			console.log('invalid');
 			return false;
 		} else {
 			$('#' + field + 'Error').removeClass('invalid');
@@ -215,10 +213,69 @@
 	function handleInput(field) {
 		validateField(field, $('#' + field).val());
 	}
+
+	function handleSecondPassword() {
+		const password = $('#contrasena').val();
+		const confirmPassword = $('#repetirContrasena').val();
+		if (password !== confirmPassword) {
+			$('#repetirPasswordError').addClass('invalid');
+			$('#repetirPasswordError').removeClass('error');
+		} else {
+			$('#repetirPasswordError').removeClass('invalid');
+			$('#repetirPasswordError').addClass('error');
+		}
+	}
+
 	function redirectLogIn() {
 		ShowContent.value = {
 			contenido: 'logIn',
 		};
+	}
+	const fields = Object.keys(validationRules);
+
+	function validateAll() {
+		let allValid = true;
+		for (let field of fields) {
+			if (!validateField(field, $('#' + field).val(), field)) {
+				allValid = false;
+			}
+		}
+		return allValid;
+	}
+	function Registrar() {
+		let resultado;
+		if (validateAll()) {
+			$.ajax({
+				url: 'http://localhost:3000/database/registrarUsuario.php',
+				type: 'POST',
+				data: {
+					usuario: $('#user').val(),
+					mail: $('#mail').val(),
+					iban: $('#iban').val(),
+					tlf: $('#tlf').val(),
+					contrasena: $('#contrasena').val(),
+				},
+				success: function (response) {
+					resultado = JSON.parse(response);
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					console.error(textStatus, errorThrown);
+				},
+			}).then(() => {
+				if (resultado.resultado === 'true') {
+					ShowContent.value = {
+						contenido: 'home',
+					};
+					usuario.value = resultado.usuario;
+					console.log(resultado.usuario);
+					islogged.value = true;
+					$('#userError').removeClass('invalid');
+					$('#userError').hide();
+				} else {
+					console.log(resultado.mensaje);
+				}
+			});
+		}
 	}
 </script>
 
