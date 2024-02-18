@@ -273,6 +273,7 @@
 					$('#userError').hide();
 				} else {
 					console.log(resultado.mensaje);
+					alert(resultado.mensaje);
 				}
 			});
 		}
@@ -291,6 +292,7 @@
 		color: rgb(190, 54, 54);
 		font-weight: bold;
 	}
+
 	.error {
 		opacity: 0%;
 	}

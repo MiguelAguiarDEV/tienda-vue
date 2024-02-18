@@ -30,6 +30,7 @@ function handleIniciarSesion() {
                 $respuesta = array();
                 $respuesta["resultado"] = "true";
                 $respuesta["mensaje"] = "Inicio de sesión exitoso";
+                $respuesta["usuario"]["id"] = $row['id'];
                 $respuesta["usuario"]["nombre"] = $row['nombre'];
                 $respuesta["usuario"]["mail"] = $row['mail'];
                 $respuesta["usuario"]["tlf"] = $row['tlf'];

@@ -28,10 +28,12 @@
 			es: 'Teléfono: ',
 		},
 	};
+
 	function cerrarSesion() {
 		usuario.value = '';
 		islogged.value = false;
 		ShowContent.value.contenido = 'home';
+		localStorage.removeItem('usuario');
 	}
 </script>
 

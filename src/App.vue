@@ -47,6 +47,13 @@
 
 	provide('usuario', usuario);
 	provide('islogged', islogged);
+	provide('productos', productos);
+
+	if (localStorage.getItem('usuario')) {
+		console.log(localStorage.getItem('usuario'));
+		usuario.value = JSON.parse(localStorage.getItem('usuario'));
+		islogged.value = true;
+	}
 </script>
 
 <template>

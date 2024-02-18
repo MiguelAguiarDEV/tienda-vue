@@ -96,6 +96,8 @@
 				islogged.value = true;
 				$('#userError').removeClass('invalid');
 				$('#userError').hide();
+				localStorage.setItem('usuario', JSON.stringify(resultado.usuario));
+				console.log(localStorage.getItem('usuario'));
 			} else {
 				if (resultado.mensaje === 'El usuario no existe') {
 					$('#userError').addClass('invalid');

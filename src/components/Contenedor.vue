@@ -40,10 +40,16 @@
 			v-if="ShowContent.contenido == 'perfil'"
 			:currentLanguage="currentLanguage"
 		/>
+		<Carrito
+			id="carrito"
+			v-if="ShowContent.contenido == 'cart'"
+			:productos="productos"
+		/>
 	</div>
 </template>
 
 <script lang="js" setup>
+	import Carrito from './Carrito.vue';
 	import Perfil from './Perfil.vue';
 	import Producto from './Producto.vue';
 	import Home from './Home.vue';
