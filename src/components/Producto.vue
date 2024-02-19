@@ -44,6 +44,7 @@
 		gap: 20px;
 		width: fit-content;
 		justify-content: center;
+		height: 20vh;
 	}
 
 	.producto {

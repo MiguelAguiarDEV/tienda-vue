@@ -5,7 +5,7 @@
 			<div class="product-info">
 				<div class="info">
 					<h2>{{ producto.nombre }}</h2>
-					<p>{{ producto.descripcion_es }}</p>
+					<p>{{ producto['descripcion_' + currentLanguage] }}</p>
 				</div>
 				<div class="precio-ctn">
 					<p class="precio">{{ producto.precio }}$</p>
@@ -36,21 +36,56 @@
 <script setup>
 	import { defineProps, inject } from 'vue';
 	import { ref } from 'vue';
+	import $ from 'jquery';
 	const props = defineProps({
-		producto_id: {
-			type: String,
+		carrito_id: {
+			type: Number,
 		},
+		producto_id: {
+			type: Number,
+		},
+
 		cantidad: {
 			type: Number,
 		},
+		usuario_id: {
+			type: Number,
+		},
+		currentLanguage: {
+			type: String,
+		},
 	});
 
-	const currentLanguage = inject('currentLanguage');
+	const usuario = inject('usuario');
 	const productos = inject('productos');
 	const producto = ref(productos.value[props.producto_id]);
 
 	function eliminar() {
-		console.log('eliminado');
+		let resultado;
+
+		$.ajax({
+			url: 'http://localhost:3000/database/handleCarrito.php', // La URL del servidor
+			type: 'GET', // El tipo de petición HTTP
+			data: {
+				// Los datos que quieres enviar
+				action: 'eliminar',
+				carrito_id: props.carrito_id,
+				usuario: props.usuario_id,
+				producto: props.producto_id,
+				cantidad: props.cantidad,
+			},
+			success: function (response) {
+				// Esta función se ejecutará si la petición es exitosa
+				// 'response' contiene la respuesta del servidor
+				resultado = JSON.parse(response);
+			},
+			error: function (textStatus, errorThrown) {
+				// Esta función se ejecutará si la petición falla
+				console.error(textStatus, errorThrown);
+			},
+		}).then(() => {
+			console.log('eliminado');
+		});
 	}
 	function mas() {
 		console.log('mas');
