@@ -1,21 +1,36 @@
 <template>
-	<div v-if="islogged">
-		<div class="ctn-productos">
-			<ProductoCarrito
-				class="producto-carrito"
-				v-if="Object.keys(productosCarrito).length > 0"
-				v-for="item in productosCarrito"
-				:key="item.id"
-				:producto_id="item.id_producto"
-				:cantidad="item.cantidad"
-				:usuario_id="item.id_usuario"
-				:currentLanguage="currentLanguage"
-			/>
+	<div>
+		<div
+			v-if="islogged && Object.keys(productosCarrito).length > 0"
+			class="ctn"
+		>
+			<div class="ctn-productos">
+				<ProductoCarrito
+					class="producto-carrito"
+					v-if="Object.keys(productosCarrito).length > 0"
+					v-for="item in productosCarrito"
+					:key="item.id"
+					:carrito_id="item.id_carrito"
+					:usuario_id="item.id_usuario"
+					:producto_id="item.id_producto"
+					:cantidad="item.cantidad"
+					:currentLanguage="currentLanguage"
+					@getCarrito="getCarrito"
+				/>
+			</div>
+			<div>
+				<p>Total$</p>
+			</div>
 		</div>
-	</div>
-	<div v-else class="inicia-sesion">
-		<a @click="redirectSingUp">{{ text.nolog[currentLanguage] }}</a>
-		<a @click="redirectLogIn">{{ text.noUser[currentLanguage] }}</a>
+		<div v-if="!islogged" class="inicia-sesion">
+			<a @click="redirectSingUp">{{ text.nolog[currentLanguage] }}</a>
+			<a @click="redirectLogIn">{{ text.noUser[currentLanguage] }}</a>
+		</div>
+		<div v-if="Object.keys(productosCarrito).length == 0" class="inicia-sesion">
+			<p>
+				{{ text.noproducts[currentLanguage] }}
+			</p>
+		</div>
 	</div>
 </template>
 
@@ -41,23 +56,25 @@
 			contenido: 'signUp',
 		};
 	}
-
-	$.ajax({
-		url: 'http://localhost:3000/database/getCarrito.php',
-		type: 'GET',
-		data: {
-			id_usuario: usuario.value.id,
-		},
-		success: function (data) {
-			console.log(JSON.parse(data));
-			productosCarrito.value = JSON.parse(data);
-		},
-		error: function (error) {
-			console.log(error);
-		},
-	}).then(() => {
-		console.log(Object.keys(productosCarrito.value).length);
-	});
+	function getCarrito() {
+		$.ajax({
+			url: 'http://localhost:3000/database/getCarrito.php',
+			type: 'GET',
+			data: {
+				id_usuario: usuario.value.id,
+			},
+			success: function (data) {
+				console.log(JSON.parse(data));
+				productosCarrito.value = JSON.parse(data);
+			},
+			error: function (error) {
+				console.log(error);
+			},
+		}).then(() => {
+			console.log(Object.keys(productosCarrito.value).length);
+		});
+	}
+	getCarrito();
 
 	const text = ref({
 		nolog: {
@@ -68,21 +85,31 @@
 			en: "Don't have an account? Sign up here.",
 			es: '¿No tienes cuenta? Regístrate aquí.',
 		},
+		noproducts: {
+			en: 'Your cart is empty.',
+			es: 'Tu carrito está vacío.',
+		},
 	});
 
 	const ShowContent = inject('ShowContent');
 </script>
 
 <style scoped>
+	.ctn {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+	}
 	#carrito {
 		display: flex;
+		width: 50%;
 	}
 
 	.ctn-productos {
-		overflow: auto;
 		border: 1px solid #3d3d3d;
 		border-radius: 10px 0 0 10px;
-		width: 60%;
+		width: 100%;
 	}
 	.producto-carrito:last-child {
 		border-bottom: 1px solid transparent;

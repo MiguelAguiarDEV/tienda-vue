@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<div class="product-card">
-			<img class="image-product" :src="producto.imagen" alt="" />
+			<img class="image-product" :src="productos[producto_id].imagen" alt="" />
 			<div class="product-info">
 				<div class="info">
-					<h2>{{ producto.nombre }}</h2>
-					<p>{{ producto['descripcion_' + currentLanguage] }}</p>
+					<h2>{{ productos[producto_id].nombre }}</h2>
+					<p>{{ productos[producto_id]['descripcion_' + currentLanguage] }}</p>
 				</div>
 				<div class="precio-ctn">
-					<p class="precio">{{ producto.precio }}$</p>
+					<p class="precio">{{ productos[producto_id].precio }}$</p>
 					<div class="ctn-cantidad">
 						<button class="btn-eliminar" @click="eliminar()">
 							<img
@@ -58,12 +58,13 @@
 
 	const usuario = inject('usuario');
 	const productos = inject('productos');
-	const producto = ref(productos.value[props.producto_id]);
-
+	const emit = defineEmits(['getCarrito']);
 	//Se modifica la linea del carrito en la base de datos con ajax, y se recoge de nuevo la informacion del carrito
+	console.log('Datos; ', props.carrito_id);
+	console.log('Cantidad', props.cantidad);
 	function eliminar() {
 		let resultado;
-
+		console.log('eliminar: ', props.carrito_id);
 		$.ajax({
 			url: 'http://localhost:3000/database/handleCarrito.php', // La URL del servidor
 			type: 'GET', // El tipo de petición HTTP
@@ -78,14 +79,16 @@
 			success: function (response) {
 				// Esta función se ejecutará si la petición es exitosa
 				// 'response' contiene la respuesta del servidor
-				resultado = JSON.parse(response);
+				resultado = response;
+				console.log(response);
 			},
 			error: function (textStatus, errorThrown) {
 				// Esta función se ejecutará si la petición falla
 				console.error(textStatus, errorThrown);
 			},
 		}).then(() => {
-			console.log('eliminado');
+			console.log(resultado);
+			emit('getCarrito');
 		});
 	}
 	function mas() {
