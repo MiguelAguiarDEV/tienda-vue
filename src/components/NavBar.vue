@@ -189,6 +189,7 @@
 		border-radius: 5px;
 		border: 1px solid transparent;
 		z-index: 1;
+		color: white;
 	}
 
 	.item-products:hover {
@@ -216,5 +217,11 @@
 	}
 	.product:hover {
 		text-decoration: underline;
+	}
+	button {
+		background-color: transparent;
+		border: none;
+		color: white;
+		cursor: pointer;
 	}
 </style>

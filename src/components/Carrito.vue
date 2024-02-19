@@ -1,16 +1,21 @@
 <template>
-	<div>
+	<div v-if="islogged">
 		<div class="ctn-productos">
 			<ProductoCarrito
 				class="producto-carrito"
 				v-if="Object.keys(productosCarrito).length > 0"
-				v-for="item in Object.keys(productosCarrito)"
-				:key="item"
-				:producto_id="item"
-				:cantidad="productosCarrito[item]"
+				v-for="item in productosCarrito"
+				:key="item.id"
+				:producto_id="item.id_producto"
+				:cantidad="item.cantidad"
+				:usuario_id="item.id_usuario"
+				:currentLanguage="currentLanguage"
 			/>
 		</div>
-		<div>Hola</div>
+	</div>
+	<div v-else class="inicia-sesion">
+		<a @click="redirectSingUp">{{ text.nolog[currentLanguage] }}</a>
+		<a @click="redirectLogIn">{{ text.noUser[currentLanguage] }}</a>
 	</div>
 </template>
 
@@ -23,6 +28,19 @@
 	const currentLanguage = inject('currentLanguage');
 	const productos = inject('productos');
 	const productosCarrito = ref({});
+	const islogged = inject('islogged');
+
+	function redirectLogIn() {
+		ShowContent.value = {
+			contenido: 'logIn',
+		};
+	}
+
+	function redirectSingUp() {
+		ShowContent.value = {
+			contenido: 'signUp',
+		};
+	}
 
 	$.ajax({
 		url: 'http://localhost:3000/database/getCarrito.php',
@@ -40,6 +58,19 @@
 	}).then(() => {
 		console.log(Object.keys(productosCarrito.value).length);
 	});
+
+	const text = ref({
+		nolog: {
+			en: 'Log in to see your cart.',
+			es: 'Inicia sesión para ver tu carrito.',
+		},
+		noUser: {
+			en: "Don't have an account? Sign up here.",
+			es: '¿No tienes cuenta? Regístrate aquí.',
+		},
+	});
+
+	const ShowContent = inject('ShowContent');
 </script>
 
 <style scoped>
@@ -58,5 +89,22 @@
 	}
 	.producto-carrito {
 		border-bottom: 1px solid #3d3d3d;
+	}
+
+	.inicia-sesion {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		width: fit-content;
+		margin: 0 auto;
+	}
+	.inicia-sesion a {
+		color: #fff;
+		cursor: pointer;
+	}
+
+	.inicia-sesion a:hover {
+		color: #45a049;
+		text-decoration: underline;
 	}
 </style>

@@ -1,5 +1,4 @@
 <?php 
-
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, GET");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -28,7 +27,12 @@ function getCarrito() {
     // Fetch the results and store them in an array
     $data = array();
     while ($row = $result->fetchArray()) {
-        $data[$row['id_producto']] = $row['cantidad'];
+        $fila = [];
+        $fila["id_carrito"] = $row["id"];
+        $fila["id_usuario"] = $row["id_usuario"];
+        $fila["id_producto"] = $row["id_producto"];
+        $fila["cantidad"] = $row["cantidad"];
+        $data[] = $fila;
     }
 
     echo json_encode($data);
