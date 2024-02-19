@@ -49,6 +49,7 @@
 	const productos = inject('productos');
 	const producto = ref(productos.value[props.producto_id]);
 
+	//Se modifica la linea del carrito en la base de datos con ajax, y se recoge de nuevo la informacion del carrito
 	function eliminar() {
 		console.log('eliminado');
 	}
