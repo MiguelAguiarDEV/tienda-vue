@@ -18,8 +18,11 @@
 					@getCarrito="getCarrito"
 				/>
 			</div>
-			<div>
-				<p>Total$</p>
+			<div class="ctn-compra">
+				<p class="p-total">Total: {{ total }}$</p>
+				<button class="btn-comprar" @click="realizarCompra()">
+					{{ currentLanguage === 'es' ? 'Finalizar pedido' : 'Finish order' }}
+				</button>
 			</div>
 		</div>
 		<div v-if="!islogged" class="inicia-sesion">
@@ -45,6 +48,8 @@
 	const productosCarrito = ref({});
 	const islogged = inject('islogged');
 
+	const total = ref(0);
+
 	function redirectLogIn() {
 		ShowContent.value = {
 			contenido: 'logIn',
@@ -56,6 +61,7 @@
 			contenido: 'signUp',
 		};
 	}
+
 	function getCarrito() {
 		$.ajax({
 			url: 'http://localhost:3000/database/getCarrito.php',
@@ -64,18 +70,34 @@
 				id_usuario: usuario.value.id,
 			},
 			success: function (data) {
-				console.log(JSON.parse(data));
-				productosCarrito.value = JSON.parse(data);
+				productosCarrito.value = JSON.parse(data).productos;
+				total.value = JSON.parse(data).total;
 			},
 			error: function (error) {
 				console.log(error);
 			},
-		}).then(() => {
-			console.log(Object.keys(productosCarrito.value).length);
 		});
 	}
 	getCarrito();
 
+	function realizarCompra() {
+		$.ajax({
+			url: 'http://localhost:3000/database/handleCarrito.php',
+			type: 'GET',
+			data: {
+				action: 'vaciar',
+				usuario: usuario.value.id,
+			},
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (textStatus, errorThrown) {
+				console.error(textStatus, errorThrown);
+			},
+		}).then(() => {
+			getCarrito();
+		});
+	}
 	const text = ref({
 		nolog: {
 			en: 'Log in to see your cart.',
@@ -95,15 +117,47 @@
 </script>
 
 <style scoped>
+	.p-total {
+		font-size: 30px;
+		margin: 0;
+	}
+	.btn-comprar {
+		background-color: #4caf50;
+		border: none;
+		color: white;
+		padding: 15px 32px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 30px;
+		margin: 4px 2px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+
+	.btn-comprar:hover {
+		background-color: #45a049;
+	}
+
+	.ctn-compra {
+		padding: 32px;
+		border: 1px solid #3d3d3d;
+		border-radius: 0 10px 10px 0;
+		width: 50%;
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+	}
 	.ctn {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		flex-direction: row;
+		gap: 32px;
 	}
 	#carrito {
 		display: flex;
-		width: 50%;
+		width: 100%;
 	}
 
 	.ctn-productos {

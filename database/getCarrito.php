@@ -26,15 +26,22 @@ function getCarrito() {
 
     // Fetch the results and store them in an array
     $data = array();
+    $productos = array();
+    $total = floatval(0);
     while ($row = $result->fetchArray()) {
         $fila = [];
         $fila["id_carrito"] = $row["id"];
         $fila["id_usuario"] = $row["id_usuario"];
         $fila["id_producto"] = $row["id_producto"];
         $fila["cantidad"] = $row["cantidad"];
-        $data[] = $fila;
+        $productos[] = $fila;
+        
+        $query2 = "SELECT * FROM productos WHERE id = '$row[id_producto]'";
+        $result2 = $db->query($query2);
+        $total += $row["cantidad"]*$result2->fetchArray()["precio"];
     }
-
+    $data["total"] = round($total, 2);
+    $data["productos"] = $productos;
     echo json_encode($data);
     // Close the result set
     $result->finalize();

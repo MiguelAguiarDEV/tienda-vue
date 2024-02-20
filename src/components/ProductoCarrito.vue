@@ -60,8 +60,6 @@
 	const productos = inject('productos');
 	const emit = defineEmits(['getCarrito']);
 	//Se modifica la linea del carrito en la base de datos con ajax, y se recoge de nuevo la informacion del carrito
-	console.log('Datos; ', props.carrito_id);
-	console.log('Cantidad', props.cantidad);
 	function eliminar() {
 		let resultado;
 		console.log('eliminar: ', props.carrito_id);
@@ -91,11 +89,58 @@
 			emit('getCarrito');
 		});
 	}
+
 	function mas() {
-		console.log('mas');
+		let resultado;
+		$.ajax({
+			url: 'http://localhost:3000/database/handleCarrito.php', // La URL del servidor
+			type: 'GET', // El tipo de petición HTTP
+			data: {
+				// Los datos que quieres enviar
+				action: 'agregar',
+				usuario: props.usuario_id,
+				producto: props.producto_id,
+			},
+			success: function (response) {
+				// Esta función se ejecutará si la petición es exitosa
+				// 'response' contiene la respuesta del servidor
+				resultado = response;
+				console.log(response);
+			},
+			error: function (textStatus, errorThrown) {
+				// Esta función se ejecutará si la petición falla
+				console.error(textStatus, errorThrown);
+			},
+		}).then(() => {
+			console.log(resultado);
+			emit('getCarrito');
+		});
 	}
 	function menos() {
-		console.log('menos');
+		let resultado;
+		$.ajax({
+			url: 'http://localhost:3000/database/handleCarrito.php', // La URL del servidor
+			type: 'GET', // El tipo de petición HTTP
+			data: {
+				// Los datos que quieres enviar
+				action: 'menos',
+				usuario: props.usuario_id,
+				producto: props.producto_id,
+			},
+			success: function (response) {
+				// Esta función se ejecutará si la petición es exitosa
+				// 'response' contiene la respuesta del servidor
+				resultado = response;
+				console.log(response);
+			},
+			error: function (textStatus, errorThrown) {
+				// Esta función se ejecutará si la petición falla
+				console.error(textStatus, errorThrown);
+			},
+		}).then(() => {
+			console.log(resultado);
+			emit('getCarrito');
+		});
 	}
 </script>
 

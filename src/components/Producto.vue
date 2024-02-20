@@ -10,7 +10,11 @@
 				</div>
 				<div class="precio-ctn">
 					<p class="precio">{{ producto.precio }}$</p>
-					<button v-if="producto.disponibilidad" class="btn-add-cart">
+					<button
+						v-if="producto.disponibilidad"
+						@click="agregarAlCarrito()"
+						class="btn-add-cart"
+					>
 						{{
 							currentLanguage === 'es' ? 'Agregar al carrito' : 'Add to Cart'
 						}}
@@ -29,6 +33,8 @@
 
 <script setup>
 	import { defineProps, inject, ref } from 'vue';
+	import $ from 'jquery';
+
 	const props = defineProps({
 		producto: {
 			type: Object,
@@ -36,6 +42,34 @@
 	});
 
 	const currentLanguage = inject('currentLanguage');
+	const usuario_id = inject('usuario').value.id;
+
+	function agregarAlCarrito() {
+		let resultado;
+		$.ajax({
+			url: 'http://localhost:3000/database/handleCarrito.php', // La URL del servidor
+			type: 'GET', // El tipo de petición HTTP
+			data: {
+				// Los datos que quieres enviar
+				action: 'agregar',
+				usuario: usuario_id,
+				producto: props.producto.id,
+			},
+			success: function (response) {
+				// Esta función se ejecutará si la petición es exitosa
+				// 'response' contiene la respuesta del servidor
+				resultado = response;
+				console.log(response);
+			},
+			error: function (textStatus, errorThrown) {
+				// Esta función se ejecutará si la petición falla
+				console.error(textStatus, errorThrown);
+			},
+		}).then(() => {
+			console.log(resultado);
+			emit('getCarrito');
+		});
+	}
 </script>
 
 <style scoped>

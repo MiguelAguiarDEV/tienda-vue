@@ -31,6 +31,7 @@
 
 	function changeContent(contenido) {
 		ShowContent.value = contenido;
+	       console.log("El contenido de la web cambio: ", ShowContent.value.contenido);
 	}
 
 	const currentLanguage = ref('en');

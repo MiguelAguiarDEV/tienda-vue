@@ -81,7 +81,6 @@
 	$(document).ready(function () {
 		$('.product').click(function () {
 			let product = $(this).val();
-			console.log(product);
 		});
 	});
 
@@ -121,11 +120,11 @@
 		} else {
 			idioma.value = languageTexts.spanish;
 		}
+	       console.log("Se cambio el idioma a: ", props.currentLanguage);
 	}
 	function callChangeContent(contenido) {
 		// Call the function passed from the parent component
 		emit('changeContent', contenido);
-		console.log(contenido);
 	}
 	const islogged = inject('islogged');
 	const usuario = inject('usuario');
